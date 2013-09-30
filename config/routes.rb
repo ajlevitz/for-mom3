@@ -3,7 +3,6 @@ ForMom3::Application.routes.draw do
   root 'home#index'
 
   devise_for :users
-  get '/users/:id', :to => 'home#index', :as => :current_user
   patch '/users/:id', :to => 'home#index', :as => :user
 
   resources :schools
