@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130930040538) do
+ActiveRecord::Schema.define(version: 20130930042933) do
+
+  create_table "applyings", force: true do |t|
+    t.integer  "school_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "applyings", ["school_id"], name: "index_applyings_on_school_id"
+  add_index "applyings", ["user_id"], name: "index_applyings_on_user_id"
+
+  create_table "schools", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -28,6 +44,8 @@ ActiveRecord::Schema.define(version: 20130930040538) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.boolean  "admin",                  default: false
+    t.integer  "grad_year"
+    t.string   "high_school"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

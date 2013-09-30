@@ -1,0 +1,24 @@
+<h1>Welcome, Randi!</h1>
+
+<h2>All schools</h2>
+
+  <table style="width:450px">
+    <tr>
+      <th>University Name</th>
+      <th># of students</th>
+    </tr>
+
+    <% School.all.each do |school| %>
+      <tr>
+        <td><%= link_to school.name, school_path(school) %></td>
+        <td><%= school.users.length %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<h2>All Students</h2>
+  <% User.all.each do |user| %>
+    <% if user.admin? != true %>
+      <p><%= user.email %></p>
+    <% end %>
+  <% end %>

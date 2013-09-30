@@ -1,0 +1,9 @@
+<h1>List all schools</h1>
+
+<% if @schools.length > 0 %>
+  <p><%= @schools %></p>
+<% else %>
+  <p>No schools yet</p>
+<% end %>
+
+<p><%= link_to 'Add a school', new_school_path %></p>

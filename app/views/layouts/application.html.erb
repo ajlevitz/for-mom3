@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<% if user_signed_in? && current_user.admin? %>
+  <p>You're logged in! As an <strong>admin</strong>! <%= current_user.email %></p>
+<% elsif user_signed_in? && !current_user.admin? %>
+  <p>You're logged in! As a <strong>student</strong>! <%= current_user.email %></p>
+<% end %>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 

@@ -1,14 +1,12 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
 <% if user_signed_in? %>
-  <% if current_user.admin? %>
-    <p>You're logged in! As an Admin!</p>
-  <% else %>
-    <p>You're logged in!</p>
-  <% end %>
   <p><%= link_to 'Log out', destroy_user_session_path, method: :delete %></p>
 <% else %>
-  <p><%= link_to 'Log in', new_user_registration_path %></p>
-  <p><%= link_to 'Sign up', new_user_session_path %></p>
+  <p><%= link_to 'Log in', new_user_session_path %></p>
+  <p><%= link_to 'Sign up', new_user_registration_path %></p>
+<% end %>
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= render :partial => 'admin' %>
+<% elsif user_signed_in? && !current_user.admin? %>
+  <%= render :partial => 'student' %>
 <% end %>
