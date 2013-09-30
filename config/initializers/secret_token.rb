@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ForMom3::Application.config.secret_key_base = '139361c7281c415ed75fbeacceb7d3bf035e62132e938bc0f6b08a6fdbc5198e7a2716b5198c9db5113811a7cdfe7177e381299a2f3c671e7809d518c0b889b6'
+ForMom3::Application.config.secret_key_base = '156526c19ccf2ec6e51d758baa79865f7038d0592fb0f9917bc19e814679893a845a7dd935b5aad1665babed755d794cf3ec6acc9fd95977cc6f5b9043bf2903'
