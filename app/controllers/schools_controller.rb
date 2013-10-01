@@ -10,7 +10,7 @@ class SchoolsController < ApplicationController
   end
 
   def create
-    @school = School.new(school_params)
+    @school = School.find_or_create_by(school_params)
     @school.save
     
     redirect_to school_path(@school)

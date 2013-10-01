@@ -1,7 +1,10 @@
 <h1>List all schools</h1>
 
 <% if @schools.length > 0 %>
-  <p><%= @schools %></p>
+  <% @schools.each do |school| %>
+    <p><%= school.name %>, <%= school.id %>, <%= link_to 'Delete', school_path(school),
+                      method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  <% end %>
 <% else %>
   <p>No schools yet</p>
 <% end %>
