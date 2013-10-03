@@ -19,6 +19,6 @@
 <h2>All Students</h2>
   <% User.all.each do |user| %>
     <% if user.admin? != true %>
-      <p><%= user.email %></p>
+      <p><%= user.name %> (<%= user.email %>) from <%= user.high_school %>, class of <%= user.grad_year %></p>
     <% end %>
   <% end %>
