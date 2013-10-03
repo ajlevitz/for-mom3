@@ -6,7 +6,9 @@ ForMom3::Application.routes.draw do
   devise_for :users
   patch '/users/:id', :to => 'home#index', :as => :user
 
-  resources :schools
+  resources :schools do
+    resources :prompts
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
