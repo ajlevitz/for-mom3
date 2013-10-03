@@ -8,7 +8,31 @@
     <li><%= link_to school.name, school_path(school) %></li>
     <ul><% school.prompts.each do |prompt| %>
       <li><%= prompt.question %></li>
+      <ul><% Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).each do |response| %>
+        <li><%= response.comments %></li>
+      <% end %>
+      <%= form_for(Response.new) do |f| %>
+        <p>
+          <%= f.label "Add a response: " %><%= f.text_field :comments %>
+        </p>
+        <p><%= f.submit %></p>
+        <p style="visibility:hidden; height:0px;">
+          <%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %>
+        </p>
+        <p style="visibility:hidden; height:0px;">
+          <%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %>
+        </p>
+      <% end %></ul>
     <% end %></ul>
+    <%= form_for([school, school.prompts.build]) do |f| %>
+      <p>
+        <%= f.label 'Add a prompt:' %><br />
+        <%= f.text_field :question, :size => "30x10" %>
+      </p>
+      <p>
+        <%= f.submit %>
+      </p>
+    <% end %>
   <% end %>
   </ol>
 
