@@ -4,7 +4,33 @@
   <% if user.admin? != true %>
     <h3><%= user.name %> (<%= user.email %>) from <%= user.high_school %>, class of <%= user.grad_year %></h3>
     <% user.schools.each do |school| %>
-      <p><%= link_to school.name, school_path(school) %></p>
+      <h2><%= link_to school.name, school_path(school) %></h2>
+      <% if school.prompts.length > 0 %>
+        <table style="width:450px; text-align:left;">
+          <tr>
+            <th>Essay Prompt</th>
+            <th>New response?</th>
+            <th>Status</th>
+          </tr>
+          <% school.prompts.each do |prompt| %>
+            <tr>
+              <td><%= prompt.question %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+      <%= form_for([school, school.prompts.build]) do |f| %>
+        <p>
+          <%= f.label 'Add a prompt:' %><br />
+          <%= f.text_area :question, :size => "100x1" %>
+        </p>
+        <p>
+          <%= f.submit %>
+        </p>
+      <% end %>
+      <br />
     <% end %>
     <hr>
   <% end %>
