@@ -1,24 +1,11 @@
-<h1>Welcome, Randi!</h1>
+<h1>Welcome, Randi!</h1><hr>
 
-<h2>All schools</h2>
-
-  <table style="width:450px">
-    <tr>
-      <th>University Name</th>
-      <th># of students</th>
-    </tr>
-
-    <% School.all.each do |school| %>
-      <tr>
-        <td><%= link_to school.name, school_path(school) %></td>
-        <td><%= school.users.length %></td>
-      </tr>
+<% User.all.each do |user| %>
+  <% if user.admin? != true %>
+    <h3><%= user.name %> (<%= user.email %>) from <%= user.high_school %>, class of <%= user.grad_year %></h3>
+    <% user.schools.each do |school| %>
+      <p><%= school.name %></p>
     <% end %>
-  </table>
-
-<h2>All Students</h2>
-  <% User.all.each do |user| %>
-    <% if user.admin? != true %>
-      <p><%= user.name %> (<%= user.email %>) from <%= user.high_school %>, class of <%= user.grad_year %></p>
-    <% end %>
+    <hr>
   <% end %>
+<% end %>
