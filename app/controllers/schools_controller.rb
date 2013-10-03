@@ -13,7 +13,7 @@ class SchoolsController < ApplicationController
     @school = School.find_or_create_by(school_params)
     @school.save
     
-    redirect_to school_path(@school)
+    redirect_to :back
   end
 
   def show
