@@ -6,17 +6,26 @@
     <% user.schools.each do |school| %>
       <h2><%= link_to school.name, school_path(school) %></h2>
       <% if school.prompts.length > 0 %>
-        <table style="width:450px; text-align:left;">
+        <table style="text-align:left;">
           <tr>
-            <th>Essay Prompt</th>
-            <th>New response?</th>
-            <th>Status</th>
+            <th style="width:200px;">Essay Prompt</th>
+            <th style="width:200px;">Newest response comments</th>
+            <th style="width:50px;">Status</th>
+            <th>Add a response</th>
           </tr>
           <% school.prompts.each do |prompt| %>
             <tr>
               <td><%= prompt.question %></td>
-              <td></td>
-              <td></td>
+              <% if Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).length > 0 %>
+                <td><%= Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).last.comments %></td>
+              <% else %>
+                <td>No responses yet</td>
+              <% end %>
+              <td>Status</td>
+              <%= form_for(Response.new) do |f| %>
+                <td><%= f.text_field :comments %> <%= f.submit %></td>
+                <span style="visibility:hidden; height:0px;"><%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %><%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %></span>
+              <% end %>
             </tr>
           <% end %>
         </table>
@@ -24,11 +33,9 @@
       <%= form_for([school, school.prompts.build]) do |f| %>
         <p>
           <%= f.label 'Add a prompt:' %><br />
-          <%= f.text_area :question, :size => "100x1" %>
+          <%= f.text_field :question, :size => "70x10" %>
         </p>
-        <p>
-          <%= f.submit %>
-        </p>
+        <p><%= f.submit %></p>
       <% end %>
       <br />
     <% end %>
