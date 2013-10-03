@@ -17,21 +17,16 @@
         </p>
         <p><%= f.submit %></p>
         <p style="visibility:hidden; height:0px;">
-          <%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %>
-        </p>
-        <p style="visibility:hidden; height:0px;">
-          <%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %>
+          <%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %><%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %>
         </p>
       <% end %></ul>
     <% end %></ul>
     <%= form_for([school, school.prompts.build]) do |f| %>
       <p>
         <%= f.label 'Add a prompt:' %><br />
-        <%= f.text_field :question, :size => "30x10" %>
+        <%= f.text_field :question, :size => "70x10" %>
       </p>
-      <p>
-        <%= f.submit %>
-      </p>
+      <p><%= f.submit %></p>
     <% end %>
   <% end %>
   </ol>
