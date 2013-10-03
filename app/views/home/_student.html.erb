@@ -15,7 +15,7 @@
 
 <h2>All schools</h2>
   <% School.all.each do |school| %>
-    <p><%=school.name %>, <%= school.id %> | <%= link_to 'Apply here', {:controller => 'home', :action => 'apply_here', :school_id => school.id, :name => school.name}, :method => :get %>
+    <p><%=school.name %>, <%= school.id %> | <%= link_to 'Apply here', {:controller => 'applyings', :action => 'apply_here', :school_id => school.id, :name => school.name}, :method => :get %>
     </p>
   <% end %>
 
