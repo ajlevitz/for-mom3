@@ -1,5 +1,7 @@
 ForMom3::Application.routes.draw do
+  resources :home
   get 'home/index'
+  get 'home/apply_here'
   root 'home#index'
 
   devise_for :users

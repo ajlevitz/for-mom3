@@ -7,5 +7,4 @@ class User < ActiveRecord::Base
 
   has_many :applyings
   has_many :schools, through: :applyings
-
 end

@@ -1,22 +1,33 @@
 <h1>Welcome, student!</h1>
 <h3><%= current_user.high_school %>, class of <%= current_user.grad_year %></h3>
 
-<h2>All schools</h2>
-  <% School.all.each do |school| %>
-    <p><%= school.name %>, <%= school.id %></p>
-  <% end %>
-
 
 <h2>Your schools</h2>
 <% if current_user.schools.length > 0 %>
   <ul>
-    <li><%= current_user.schools.length %></li>
     <% current_user.schools.each do |school| %>
-      <li><%= link_to school.name, school_path(school) %></li>
+      <li><%= school.name %>, <%= school.id %></li>
     <% end %>
   </ul>
 <% else %>
   <p>You haven't decided to apply to any schools</p>
 <% end %>
 
+<h2>All schools</h2>
+  <% School.all.each do |school| %>
+    <p><%=school.name %>, <%= school.id %> | <%= link_to 'Apply here', {:controller => 'home', :action => 'apply_here', :school_id => school.id, :name => school.name}, :method => :get %>
+    </p>
+  <% end %>
+
 <h2> Add a school </h2>
+<% School.new do |school| %>
+  <%= form_for(school) do |f| %>
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_area :name %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+<% end %>
