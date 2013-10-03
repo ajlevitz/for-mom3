@@ -31,7 +31,24 @@
 
 <% @school.prompts.each do |prompt| %>
   <p>
-     <%= prompt.question %>
+    <strong><%= prompt.question %></strong>
+    <% prompt.responses.each do |response| %>
+      <p><%= response.comments %></p>
+    <% end %>
+    <%= form_for(Response.new) do |f| %>
+      <p>
+        <%= f.label "Add a response: " %><%= f.text_field :comments %>
+      </p>
+      <p style="visibility:hidden; height:0px;">
+        <%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %>
+      </p>
+      <p style="visibility:hidden; height:0px;">
+        <%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %>
+      </p>
+      <p>
+        <%= f.submit %>
+      </p>
+    <% end %>
   </p>
   </br>
 <% end %>

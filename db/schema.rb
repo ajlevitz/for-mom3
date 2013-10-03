@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003162234) do
+ActiveRecord::Schema.define(version: 20131003211139) do
 
   create_table "applyings", force: true do |t|
     t.integer  "school_id"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 20131003162234) do
   end
 
   add_index "prompts", ["school_id"], name: "index_prompts_on_school_id"
+
+  create_table "responses", force: true do |t|
+    t.integer  "prompt_id"
+    t.integer  "user_id"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "responses", ["prompt_id"], name: "index_responses_on_prompt_id"
+  add_index "responses", ["user_id"], name: "index_responses_on_user_id"
 
   create_table "schools", force: true do |t|
     t.string   "name"
