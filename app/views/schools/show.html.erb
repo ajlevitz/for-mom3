@@ -1,5 +1,16 @@
 <h1><%= @school.name %></h1>
 
+<% if user_signed_in? && current_user.admin? %>
+  <%= render :partial => 'admin' %>
+<% elsif user_signed_in? && !current_user.admin? %>
+  <% if !current_user.schools.find_by id: @school.id %>
+    <h2><%= link_to 'Apply here', {:controller => 'applyings', :action => 'apply_here', :school_id => @school.id}, :method => :get %></h2>
+  <% end %>
+  <%= render :partial => 'student' %>
+<% end %>
+
+<p><%= link_to '<< GO HOME', root_url %></p>
+
 <!-- <h2>Students applying here:</h2>
 <%# if @school.users.length > 0 %>
   <ul>
