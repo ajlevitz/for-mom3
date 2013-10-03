@@ -5,7 +5,7 @@
   <h2>You're applying to these schools:</h2>
   <ol>
   <% current_user.schools.each do |school| %>
-    <li><%= school.name %></li>
+    <li><%= link_to school.name, school_path(school) %></li>
   <% end %>
   </ol>
 
@@ -15,7 +15,7 @@
 <% end %>
   <% School.all.each do |school| %>
     <% if !current_user.schools.find_by id: school.id %>
-      <p><%=school.name %> | <%= link_to 'Apply here', {:controller => 'applyings', :action => 'apply_here', :school_id => school.id}, :method => :get %>
+      <p><%= school.name %> | <%= link_to 'Apply here', {:controller => 'applyings', :action => 'apply_here', :school_id => school.id}, :method => :get %>
       </p>
     <% end %>
   <% end %>

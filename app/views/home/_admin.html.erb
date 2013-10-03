@@ -4,7 +4,7 @@
   <% if user.admin? != true %>
     <h3><%= user.name %> (<%= user.email %>) from <%= user.high_school %>, class of <%= user.grad_year %></h3>
     <% user.schools.each do |school| %>
-      <p><%= school.name %></p>
+      <p><%= link_to school.name, school_path(school) %></p>
     <% end %>
     <hr>
   <% end %>
