@@ -10,21 +10,25 @@
           <tr>
             <th style="width:200px;">Essay Prompt</th>
             <th style="width:200px;">Newest response comments</th>
+            <th style="width:200px;">Newest responder</th>
             <th style="width:50px;">Status</th>
             <th>Add a response</th>
           </tr>
           <% school.prompts.each do |prompt| %>
             <tr>
               <td><%= prompt.question %></td>
-              <% if Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).length > 0 %>
-                <td><%= Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).last.comments %></td>
+              <% @relevant_responses = Response.where("prompt_id='#{prompt.id}' AND (user_id='#{user.id}' OR student_id='#{user.id}')") %>
+              <% if @relevant_responses.length > 0 %>
+                <td><%= @relevant_responses.last.comments %></td>
+                <td><%= @relevant_responses.last.user.name %></td>
               <% else %>
-                <td>No responses yet</td>
+                <td><i>No responses yet</i></td>
+                <td>N/A</td>
               <% end %>
               <td>Status</td>
               <%= form_for(Response.new) do |f| %>
-                <td><%= f.text_field :comments %> <%= f.submit %></td>
-                <span style="visibility:hidden; height:0px;"><%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %><%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %></span>
+                <td><%= f.text_field :comments %><%= f.submit %></td>
+                <span style="visibility:hidden; height:0px;"><%= f.label :user_id %><%= f.text_field :user_id, :value => current_user.id %><%= f.label :prompt_id %><%= f.text_field :prompt_id, :value => prompt.id %><%= f.text_field :student_id, :value => user.id %></span>
               <% end %>
             </tr>
           <% end %>

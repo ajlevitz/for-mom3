@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003211139) do
+ActiveRecord::Schema.define(version: 20131006060354) do
 
   create_table "applyings", force: true do |t|
     t.integer  "school_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20131003211139) do
     t.text     "comments"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "student_id"
   end
 
   add_index "responses", ["prompt_id"], name: "index_responses_on_prompt_id"

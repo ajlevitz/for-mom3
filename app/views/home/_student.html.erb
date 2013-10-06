@@ -8,8 +8,12 @@
     <li><%= link_to school.name, school_path(school) %></li>
     <ul><% school.prompts.each do |prompt| %>
       <li><%= prompt.question %></li>
-      <ul><% Response.where("user_id = ? AND prompt_id = ?", current_user.id, prompt.id).each do |response| %>
+      <% @relevant_responses = Response.where("prompt_id='#{prompt.id}' AND (user_id='#{current_user.id}' OR student_id='#{current_user.id}')") %>
+      <ul><% @relevant_responses.each do |response| %>
         <li><%= response.comments %></li>
+      <% end %>
+      <% if @relevant_responses.length == 0 %>
+        <i>No responses yet</i>
       <% end %>
       <%= form_for(Response.new) do |f| %>
         <p>

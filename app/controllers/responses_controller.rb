@@ -7,6 +7,6 @@ class ResponsesController < ApplicationController
 
 private
   def response_params
-    params.required(:response).permit(:comments, :user_id, :prompt_id)
+    params.required(:response).permit(:comments, :user_id, :prompt_id, :student_id)
   end
 end
